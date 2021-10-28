@@ -1,35 +1,39 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <PackageId>DevBetter.JsonExtensions</PackageId>
-    <Title>DevBetter.JsonExtensions</Title>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Authors>Shady Nagy; Steve Smith (@ardalis); DevBetter Team</Authors>
-    <Company>DevBetter.com</Company>
-    <PackageProjectUrl>https://github.com/DevBetterCom/DevBetter.JsonExtensions</PackageProjectUrl>
-    <Description>Json Extensions Methods.</Description>
-    <Summary>Json Extensions Methods.</Summary>
-    <RepositoryUrl>https://github.com/DevBetterCom/DevBetter.JsonExtensions</RepositoryUrl>
-    <PackageTags>json extensions extension method methods c# .net dotnet dotnetcore</PackageTags>
-    <PackageReleaseNotes>Start</PackageReleaseNotes>
-    <Version>0.1.0</Version>
-    <AssemblyName>DevBetter.JsonExtensions</AssemblyName>
-    <PackageIcon>icon.png</PackageIcon>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    <LangVersion>8.0</LangVersion>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <PackageId>DevBetter.JsonExtensions</PackageId>
+        <Title>DevBetter.JsonExtensions</Title>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+        <Authors>Shady Nagy; Steve Smith (@ardalis); DevBetter Team</Authors>
+        <Company>DevBetter.com</Company>
+        <PackageProjectUrl>https://github.com/DevBetterCom/DevBetter.JsonExtensions</PackageProjectUrl>
+        <Description>Json Extensions Methods.</Description>
+        <Summary>Json Extensions Methods.</Summary>
+        <RepositoryUrl>https://github.com/DevBetterCom/DevBetter.JsonExtensions</RepositoryUrl>
+        <PackageTags>json extensions extension method methods c# .net dotnet dotnetcore</PackageTags>
+        <PackageReleaseNotes>Start</PackageReleaseNotes>
+        <Version>0.1.0</Version>
+        <AssemblyName>DevBetter.JsonExtensions</AssemblyName>
+        <PackageIcon>icon.png</PackageIcon>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+        <LangVersion>8.0</LangVersion>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="LICENSE.txt" Pack="true" PackagePath="$(PackageLicenseFile)" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="5.0.2" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Include="LICENSE.txt" Pack="true" PackagePath="$(PackageLicenseFile)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="System.Text.Json" Version="5.0.2" />
+    </ItemGroup>
 
 
 </Project>
