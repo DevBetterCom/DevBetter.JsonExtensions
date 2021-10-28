@@ -1,4 +1,4 @@
-using DevBetter.JsonExtensions.Extensions;
+﻿using DevBetter.JsonExtensions.Extensions;
 using DevBetter.JsonExtensions.Tests.Models;
 using Shouldly;
 using System;

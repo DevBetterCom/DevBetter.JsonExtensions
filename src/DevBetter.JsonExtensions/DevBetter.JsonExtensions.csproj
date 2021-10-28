@@ -23,17 +23,17 @@
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="LICENSE.txt" Pack="true" PackagePath="$(PackageLicenseFile)" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="5.0.2" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Include="LICENSE.txt" Pack="true" PackagePath="$(PackageLicenseFile)" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="System.Text.Json" Version="5.0.2" />
+    </ItemGroup>
 
 
 </Project>
