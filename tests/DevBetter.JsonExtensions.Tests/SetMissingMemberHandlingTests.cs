@@ -97,12 +97,13 @@ namespace DevBetter.JsonExtensions.Tests
     [Fact]
     public void ReturnsObjectWhenHasListObject()
     {
-      var jsonString = @"{""Id"":5, ""Title"": ""Title"",""TemperatureC"": 28,""CreatedDate"": ""2021-01-01T18:25:43.511Z"", ""Others"": [{""Id"" : 2, ""Name"": ""Test""}, {""Id"" : 3, ""Name"": ""Test""}]}";
+      var jsonString = @"{""Id"":5, ""Title"": ""Title"",""TemperatureC"": 28,""CreatedDate"": ""01/01/2021"", ""Others"": [{""Id"" : 2, ""Name"": ""Test""}, {""Id"" : 3, ""Name"": ""Test""}]}";
       var deserializeOptions = new JsonSerializerOptions()
           .SetMissingMemberHandling(MissingMemberHandling.Ignore);
 
       var weatherForecast = JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
 
+      weatherForecast.CreatedDate.ShouldBe(DateTime.Parse("01/01/2021"));
       weatherForecast.Others.Count.ShouldBe(2);
       weatherForecast.Others[0].Id.ShouldBe(2);
       weatherForecast.Others[0].Name.ShouldBe("Test");

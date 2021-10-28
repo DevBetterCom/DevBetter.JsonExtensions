@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/DevBetterCom/DevBetter.JsonExtensions</RepositoryUrl>
     <PackageTags>json extensions extension method methods c# .net dotnet dotnetcore</PackageTags>
     <PackageReleaseNotes>Start</PackageReleaseNotes>
-    <Version>0.1.1</Version>
+    <Version>0.1.2</Version>
     <AssemblyName>DevBetter.JsonExtensions</AssemblyName>
     <PackageIcon>icon.png</PackageIcon>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

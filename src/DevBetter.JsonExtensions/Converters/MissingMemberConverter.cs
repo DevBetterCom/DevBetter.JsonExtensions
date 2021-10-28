@@ -76,10 +76,16 @@ namespace DevBetter.JsonExtensions.Converters
       switch (reader.TokenType)
       {
         case JsonTokenType.String:
-          if (reader.TryGetDateTime(out var date))
+          if (typeToConvert == typeof(DateTime))
           {
-            return date;
-          }
+            if (DateTime.TryParse(reader.GetString(), out var date))
+            {
+              return date;
+            }else
+            {
+              return default(DateTime);
+            }
+          }          
           return reader.GetString();
         case JsonTokenType.False:
           return false;
