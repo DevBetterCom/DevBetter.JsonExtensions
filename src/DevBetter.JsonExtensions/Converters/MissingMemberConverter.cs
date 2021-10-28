@@ -90,24 +90,54 @@ namespace DevBetter.JsonExtensions.Converters
                 case JsonTokenType.Number:
                     return reader.GetValue(typeToConvert);
                 case JsonTokenType.StartObject:
-                    return Read(ref reader, null, options);
+                    return Read(ref reader, typeToConvert, options);
                 case JsonTokenType.StartArray:
-                    var list = Activator.CreateInstance(typeToConvert);
-                    while (reader.Read() && reader.TokenType != JsonTokenType.EndArray)
+                    if (typeToConvert.FullName.Contains("List`1[[System.String"))
                     {
-                        if (typeToConvert.FullName.Contains("List`1[[System.String"))
+                        var list = new List<string>();
+                        while (reader.Read() && reader.TokenType != JsonTokenType.EndArray)
                         {
-                            ((List<string>)list)?.Add((string)ExtractValue(ref reader, typeToConvert, options));
+                            list.Add((string)ExtractValue(ref reader, typeToConvert, options));
                         }
-                        else
-                        {
-                            ((List<object>)list)?.Add(ExtractValue(ref reader, typeToConvert, options));
-                        }
-                        
+                        return list;
                     }
-                    return list;
+                    else
+                    {
+
+                        var list = new List<object>();
+                        while (reader.Read() && reader.TokenType != JsonTokenType.EndArray)
+                        {
+                            object value = GetObjectValue(ref reader, typeToConvert.GenericTypeArguments[0], options);
+                            list.Add(value);
+                        }
+
+                        return ListCreator(list, typeToConvert.GenericTypeArguments[0]);
+                    }
                 default:
                     throw new JsonException($"'{reader.TokenType}' is not supported");
+            }
+        }
+
+        static object ListCreator(List<object> listData, Type genericType)
+        {
+            Type genericListType = typeof(List<>);
+            Type concreteListType = genericListType.MakeGenericType(genericType);
+
+            Array values = Array.CreateInstance(genericType, listData.Count);
+            for (int i = 0; i < listData.Count; i++)
+            {
+                values.SetValue(listData[i], i);
+            }
+
+            return Activator.CreateInstance(concreteListType, new object[] { values });
+        }
+
+        static object GetObjectValue(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            using (var jsonDocument = JsonDocument.ParseValue(ref reader))
+            {
+                var jsonString = jsonDocument.RootElement.GetRawText();
+                return JsonSerializer.Deserialize(jsonString, typeToConvert, options);
             }
         }
     }

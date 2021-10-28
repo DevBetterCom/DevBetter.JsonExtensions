@@ -11,5 +11,6 @@ namespace DevBetter.JsonExtensions.Tests.Models
         public DateTime CreatedDate { get; set; }
         public Country Country { get; set; }
         public List<string> Days { get; set; }
+        public List<Other> Others { get; set; }
     }
 }
