@@ -5,7 +5,7 @@
     <PackageId>DevBetter.JsonExtensions</PackageId>
     <Title>DevBetter.JsonExtensions</Title>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Authors>DevBetter Team</Authors>
+    <Authors>Shady Nagy; Steve Smith (@ardalis); DevBetter Team</Authors>
     <Company>DevBetter.com</Company>
     <PackageProjectUrl>https://github.com/DevBetterCom/DevBetter.JsonExtensions</PackageProjectUrl>
     <Description>Json Extensions Methods.</Description>
@@ -29,10 +29,6 @@
 
   <ItemGroup>
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
 
 
