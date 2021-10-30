@@ -41,4 +41,4 @@ var deserializeOptions = new JsonSerializerOptions()
 var weatherForecast = JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
 ```
 
-Please check the unit tests for more examples [here](https://github.com/DevBetterCom/DevBetter.JsonExtensions/tests/)
+Please check the unit tests for more examples [here](https://github.com/DevBetterCom/DevBetter.JsonExtensions/tree/main/tests/DevBetter.JsonExtensions.Tests)
