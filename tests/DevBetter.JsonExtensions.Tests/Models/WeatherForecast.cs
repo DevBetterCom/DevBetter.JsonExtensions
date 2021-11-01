@@ -10,6 +10,7 @@ namespace DevBetter.JsonExtensions.Tests.Models
     public int TemperatureC { get; set; }
     public DateTime CreatedDate { get; set; }
     public Country Country { get; set; }
+    public bool IsCreated { get; set; }
     public List<string> Days { get; set; }
     public List<Other> Others { get; set; }
   }

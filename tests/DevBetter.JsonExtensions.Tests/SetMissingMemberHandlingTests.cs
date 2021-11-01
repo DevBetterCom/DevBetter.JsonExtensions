@@ -110,6 +110,18 @@ namespace DevBetter.JsonExtensions.Tests
       weatherForecast.Others[1].Id.ShouldBe(3);
       weatherForecast.Others[1].Name.ShouldBe("Test");
     }
+
+    [Fact]
+    public void ReturnsFalseWhenHasEmptyObject()
+    {
+      var jsonString = @"{""Id"":5, ""Title"": ""Title"",""TemperatureC"": 28,""CreatedDate"": ""01/01/2021"", ""IsCreated"":{}, ""Others"": [{""Id"" : 2, ""Name"": ""Test""}, {""Id"" : 3, ""Name"": ""Test""}]}";
+      var deserializeOptions = new JsonSerializerOptions()
+        .SetMissingMemberHandling(MissingMemberHandling.Ignore);
+
+      var weatherForecast = JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
+
+      weatherForecast.IsCreated.ShouldBe(false);
+    }
   }
 }
 

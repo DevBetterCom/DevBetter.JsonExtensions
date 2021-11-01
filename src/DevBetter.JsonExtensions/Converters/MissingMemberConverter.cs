@@ -20,6 +20,7 @@ namespace DevBetter.JsonExtensions.Converters
       }
       switch (Type.GetTypeCode(typeToConvert))
       {
+        case TypeCode.Boolean:
         case TypeCode.Byte:
         case TypeCode.String:
         case TypeCode.DateTime:
