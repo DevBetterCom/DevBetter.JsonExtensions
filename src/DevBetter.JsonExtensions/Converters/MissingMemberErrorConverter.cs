@@ -55,7 +55,6 @@ namespace DevBetter.JsonExtensions.Converters
         }
       }
       
-
       var jsonString = string.Empty;
       var readerClone = reader;
       var objectPropertiesNames = typeToConvert.GetPropertiesNames();
@@ -65,7 +64,7 @@ namespace DevBetter.JsonExtensions.Converters
         jsonString = jsonDocument.RootElement.GetRawText();
         if (jsonString == "{}")
         {
-          return JsonSerializer.Deserialize(jsonString, typeToConvert, options);
+          throw new JsonException($"Property with type {typeToConvert.Name} not found!");
         }
         else
         {
@@ -89,7 +88,7 @@ namespace DevBetter.JsonExtensions.Converters
             }
             if (!isFound)
             {
-              throw new KeyNotFoundException($"Property {jsonProperty} not found!");
+              throw new JsonException($"Property {jsonProperty} not found!");
             }
           }
         }

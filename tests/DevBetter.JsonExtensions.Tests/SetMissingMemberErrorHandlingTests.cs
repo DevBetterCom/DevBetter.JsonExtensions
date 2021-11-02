@@ -37,7 +37,7 @@ namespace DevBetter.JsonExtensions.Tests
           .SetMissingMemberHandling(MissingMemberHandling.Error);
 
       Action action = () => JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
-      Should.Throw<KeyNotFoundException>(action).Message.ShouldBe("Property Titlex not found!");
+      Should.Throw<JsonException>(action).Message.ShouldBe("Property Titlex not found!");
     }
 
     [Fact]
@@ -48,7 +48,7 @@ namespace DevBetter.JsonExtensions.Tests
           .SetMissingMemberHandling(MissingMemberHandling.Error);
 
       Action action = () => JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
-      Should.Throw<KeyNotFoundException>(action).Message.ShouldBe("Property Idx not found!");
+      Should.Throw<JsonException>(action).Message.ShouldBe("Property Idx not found!");
     }
 
     [Fact]
@@ -59,7 +59,7 @@ namespace DevBetter.JsonExtensions.Tests
           .SetMissingMemberHandling(MissingMemberHandling.Error);
 
       Action action = () => JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
-      Should.Throw<KeyNotFoundException>(action).Message.ShouldBe("Property Namex not found!");
+      Should.Throw<JsonException>(action).Message.ShouldBe("Property Namex not found!");
     }
 
     [Fact]
@@ -67,11 +67,10 @@ namespace DevBetter.JsonExtensions.Tests
     {
       var jsonString = @"{""Id"":{}, ""Title"": ""Title"",""TemperatureC"": 28,""CreatedDate"": ""2021-01-01T18:25:43.511Z"", ""Days"": [""Sunday""]}";
       var deserializeOptions = new JsonSerializerOptions()
-          .SetMissingMemberHandling(MissingMemberHandling.Ignore);
+          .SetMissingMemberHandling(MissingMemberHandling.Error);
 
-      var weatherForecast = JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
-
-      weatherForecast.Id.ShouldBe(0);
+      Action action = () => JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
+      Should.Throw<JsonException>(action);
     }
 
     [Fact]
@@ -79,11 +78,10 @@ namespace DevBetter.JsonExtensions.Tests
     {
       var jsonString = @"{""Id"":5, ""Title"": {},""TemperatureC"": 28,""CreatedDate"": ""2021-01-01T18:25:43.511Z"", ""Days"": [""Sunday""]}";
       var deserializeOptions = new JsonSerializerOptions()
-          .SetMissingMemberHandling(MissingMemberHandling.Ignore);
+          .SetMissingMemberHandling(MissingMemberHandling.Error);
 
-      var weatherForecast = JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
-
-      weatherForecast.Title.ShouldBe(null);
+      Action action = () => JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
+      Should.Throw<JsonException>(action);
     }
 
     [Fact]
@@ -91,11 +89,10 @@ namespace DevBetter.JsonExtensions.Tests
     {
       var jsonString = @"{""Id"":5, ""Title"": ""Title"",""TemperatureC"": 28,""CreatedDate"": {}, ""Days"": [""Sunday"", ""Monday""]}";
       var deserializeOptions = new JsonSerializerOptions()
-          .SetMissingMemberHandling(MissingMemberHandling.Ignore);
+          .SetMissingMemberHandling(MissingMemberHandling.Error);
 
-      var weatherForecast = JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
-
-      weatherForecast.CreatedDate.ShouldBe(default(DateTime));
+      Action action = () => JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
+      Should.Throw<JsonException>(action);
     }
 
     [Fact]
@@ -103,11 +100,10 @@ namespace DevBetter.JsonExtensions.Tests
     {
       var jsonString = @"{""Id"":5, ""Title"": ""Title"",""TemperatureC"": 28,""CreatedDate"": ""2021-01-01T18:25:43.511Z"", ""Days"": {}}";
       var deserializeOptions = new JsonSerializerOptions()
-          .SetMissingMemberHandling(MissingMemberHandling.Ignore);
+          .SetMissingMemberHandling(MissingMemberHandling.Error);
 
-      var weatherForecast = JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
-
-      weatherForecast.Days.ShouldBe(default(List<string>));
+      Action action = () => JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
+      Should.Throw<JsonException>(action).Message.ShouldBe("Property with type List`1 not found!");
     }
 
     [Fact]
@@ -115,40 +111,10 @@ namespace DevBetter.JsonExtensions.Tests
     {
       var jsonString = @"{""Id"":5, ""Title"": ""Title"",""TemperatureC"": 28,""CreatedDate"": ""2021-01-01T18:25:43.511Z"", ""Others"": {}}";
       var deserializeOptions = new JsonSerializerOptions()
-          .SetMissingMemberHandling(MissingMemberHandling.Ignore);
-
-      var weatherForecast = JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
-
-      weatherForecast.Others.ShouldBe(default(List<Other>));
-    }
-
-    [Fact]
-    public void ReturnsObjectWhenHasListObject()
-    {
-      var jsonString = @"{""Id"":5, ""Title"": ""Title"",""TemperatureC"": 28,""CreatedDate"": ""01/01/2021"", ""Others"": [{""Id"" : 2, ""Name"": ""Test""}, {""Id"" : 3, ""Name"": ""Test""}]}";
-      var deserializeOptions = new JsonSerializerOptions()
-          .SetMissingMemberHandling(MissingMemberHandling.Ignore);
-
-      var weatherForecast = JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
-
-      weatherForecast.CreatedDate.ShouldBe(DateTime.Parse("01/01/2021"));
-      weatherForecast.Others.Count.ShouldBe(2);
-      weatherForecast.Others[0].Id.ShouldBe(2);
-      weatherForecast.Others[0].Name.ShouldBe("Test");
-      weatherForecast.Others[1].Id.ShouldBe(3);
-      weatherForecast.Others[1].Name.ShouldBe("Test");
-    }
-
-    [Fact]
-    public void ReturnsFalseWhenHasEmptyObject()
-    {
-      var jsonString = @"{""Id"":5, ""Title"": ""Title"",""TemperatureC"": 28,""CreatedDate"": ""01/01/2021"", ""IsCreated"":{}, ""Others"": [{""Id"" : 2, ""Name"": ""Test""}, {""Id"" : 3, ""Name"": ""Test""}]}";
-      var deserializeOptions = new JsonSerializerOptions()
-        .SetMissingMemberHandling(MissingMemberHandling.Ignore);
-
-      var weatherForecast = JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
-
-      weatherForecast.IsCreated.ShouldBe(false);
+          .SetMissingMemberHandling(MissingMemberHandling.Error);
+      
+      Action action = () => JsonSerializer.Deserialize<WeatherForecast>(jsonString, deserializeOptions);
+      Should.Throw<JsonException>(action).Message.ShouldBe("Property with type List`1 not found!");
     }
   }
 }
