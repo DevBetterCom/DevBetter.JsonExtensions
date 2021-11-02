@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace DevBetter.JsonExtensions.Converters
 {
-  public class MissingMemberConverter : JsonConverter<object>
+  public class MissingMemberIgnoreConverter : JsonConverter<object>
   {
     public override bool CanConvert(Type typeToConvert)
     {
@@ -118,25 +118,11 @@ namespace DevBetter.JsonExtensions.Converters
               list.Add(value);
             }
 
-            return ListCreator(list, typeToConvert.GenericTypeArguments[0]);
+            return list.CreateGeneric(typeToConvert.GenericTypeArguments[0]);
           }
         default:
           throw new JsonException($"'{reader.TokenType}' is not supported");
       }
-    }
-
-    static object ListCreator(List<object> listData, Type genericType)
-    {
-      Type genericListType = typeof(List<>);
-      Type concreteListType = genericListType.MakeGenericType(genericType);
-
-      Array values = Array.CreateInstance(genericType, listData.Count);
-      for (int i = 0; i < listData.Count; i++)
-      {
-        values.SetValue(listData[i], i);
-      }
-
-      return Activator.CreateInstance(concreteListType, new object[] { values });
     }
 
     static object GetObjectValue(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

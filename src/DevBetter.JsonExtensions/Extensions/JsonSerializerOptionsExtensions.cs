@@ -10,7 +10,10 @@ namespace DevBetter.JsonExtensions.Extensions
     {
       if (missingMemberHandling == MissingMemberHandling.Ignore)
       {
-        jsonSerializerOptions.Converters.Add(new MissingMemberConverter());
+        jsonSerializerOptions.Converters.Add(new MissingMemberIgnoreConverter());
+      }else if (missingMemberHandling == MissingMemberHandling.Error)
+      {
+        jsonSerializerOptions.Converters.Add(new MissingMemberErrorConverter());
       }
 
       return jsonSerializerOptions;
